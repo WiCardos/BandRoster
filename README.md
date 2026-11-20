@@ -14,7 +14,7 @@ A web-based Band and Discography Management CRM built with **Laravel**, **MySQL*
 * **Backend:** PHP 8.x, Laravel
 * **Database:** MySQL
 * **Frontend:** Blade Templates, Bootstrap 5
-* **Authentication:** Laravel Fortify / Breeze
+* **Authentication:** Laravel Fortify
 
 ## Installation & Setup
 
