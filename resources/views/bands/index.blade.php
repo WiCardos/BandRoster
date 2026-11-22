@@ -26,7 +26,7 @@
                     <tr>
                         <td style="width: 90px;">
                             @if($band->photo)
-                                <img src="{{ asset('storage/' . $band->photo) }}" alt="{{ $band->name }}" class="rounded" style="width: 60px; height: 60px; object-fit: cover;">
+                                <img src="{{ asset('storage/' . $band->photo) }}" alt="{{ $band->name }}" class="rounded bg-light p-1 border media-thumb">
                             @else
                                 <span class="badge bg-secondary">No Photo</span>
                             @endif

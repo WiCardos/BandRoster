@@ -62,24 +62,57 @@ class BandController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Band $band)
     {
-        //
+        return view('bands.edit', compact('band'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Band $band)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+        ]);
+
+        $photoPath = $band->photo;
+
+        if ($request->hasFile('photo')) {
+            // Se já existir uma foto, apaga-a
+            if ($band->photo) {
+                Storage::delete($band->photo);
+            }
+            $photoPath = Storage::putFile('bands', $request->file('photo'));
+        }
+
+        $band->update([
+            'name' => $request->name,
+            'photo' => $photoPath,
+        ]);
+
+        return redirect()->route('bands.index')->with('message', 'Band updated successfully!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Band $band)
     {
-        //
+        // Como não pus on-delete-cascade
+        // Valida se existem albuns associados à banda
+        if ($band->albums()->count() > 0) {
+            return redirect()->route('bands.index')
+                ->with('error', 'Cannot delete this band because it still has albums. Delete its albums first.');
+        }
+
+        if ($band->photo) {
+            Storage::delete($band->photo);
+        }
+
+        $band->delete();
+
+        return redirect()->route('bands.index')->with('message', 'Band deleted successfully!');
     }
 }
