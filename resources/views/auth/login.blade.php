@@ -29,6 +29,9 @@
                         <input type="password" name="password" id="password" class="form-control" required>
                     </div>
                     <button type="submit" class="btn btn-dark w-100">Login</button>
+                    <div class="mt-3 text-center">
+                        <a href="{{ route('password.request') }}" class="text-decoration-none">Forgot your password?</a>
+                    </div>
                 </form>
             </div>
         </div>
