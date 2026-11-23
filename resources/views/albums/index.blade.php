@@ -8,9 +8,22 @@
         <a href="{{ route('bands.index') }}" class="text-decoration-none text-muted">&larr; Back to Bands</a>
         <h2 class="mt-1">{{ $band->name }} — Discography</h2>
     </div>
-    @if(Auth::check() && Auth::user()->isAdmin())
-        <a href="{{ route('bands.albums.create', $band->id) }}" class="btn btn-success">+ Add Album</a>
-    @endif
+    <div class="d-flex gap-2">
+        <div class="dropdown">
+            <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                Export Discography
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="{{ route('bands.export.pdf', $band->id) }}">Download PDF Press Kit</a></li>
+                <li><a class="dropdown-item" href="{{ route('bands.export.csv', $band->id) }}">Download CSV</a></li>
+                <li><a class="dropdown-item" href="{{ route('bands.export.json', $band->id) }}">Download JSON</a></li>
+            </ul>
+        </div>
+
+        @if(Auth::check() && Auth::user()->isAdmin())
+            <a href="{{ route('bands.albums.create', $band->id) }}" class="btn btn-success">+ Add Album</a>
+        @endif
+    </div>
 </div>
 
 <div class="card shadow-sm">

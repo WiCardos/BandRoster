@@ -50,3 +50,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/albums/{album}/edit', [AlbumController::class, 'edit'])->name('albums.edit');
     Route::put('/albums/{album}', [AlbumController::class, 'update'])->name('albums.update');
 });
+
+
+/**
+ * Exporting (PDF, CSV, JSON)
+ */
+Route::get('/bands/{band}/export/pdf', [BandController::class, 'exportPdf'])->name('bands.export.pdf');
+Route::get('/bands/{band}/export/csv', [BandController::class, 'exportCsv'])->name('bands.export.csv');
+Route::get('/bands/{band}/export/json', [BandController::class, 'exportJson'])->name('bands.export.json');

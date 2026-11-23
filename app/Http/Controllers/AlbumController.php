@@ -36,7 +36,7 @@ class AlbumController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'release_date' => 'required|date',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',//tive que remover webp porque dava problemas na exportação para pdf
         ]);
 
         // Se receber uma foto, guarda-a na variavel
