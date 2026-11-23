@@ -13,7 +13,12 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="{{ url('/') }}">BandRoster</a>
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="{{ url('/') }}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+                    <path d="M9.5 1a1.5 1.5 0 0 0-1.415 1.003A2.5 2.5 0 0 0 5.5 4.5v.633L2.293 7.34a1 1 0 0 0-.293.707V11a1 1 0 0 0 1 1h2v3h3v-2h3.5a2.5 2.5 0 0 0 2.5-2.5V6a2 2 0 0 0-2-2h-.5A1.5 1.5 0 0 0 9.5 1m1.5 4.5a.5.5 0 1 1 0 1 .5.5 0 0 1 0-1"/>
+                </svg>
+                <span>BandRoster</span>
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -77,6 +82,9 @@
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <footer class="container text-center text-muted small py-4 mt-5 border-top">
+        BandRoster &mdash; Rule the Roster
+    </footer>
 </body>
 
 </html>
