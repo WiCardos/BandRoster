@@ -31,6 +31,13 @@
                     </div>
 
                     <div class="mb-3">
+                        <label for="preview_url" class="form-label">YouTube or Spotify Link (Optional)</label>
+                        <input type="url" name="preview_url" id="preview_url" class="form-control"
+                            placeholder="https://open.spotify.com/album/... or https://www.youtube.com/watch?v=..."
+                            {{-- value="{{ old('preview_url', $album->preview_url ?? '') }}"> --}}
+                    </div>
+
+                    <div class="mb-3">
                         <label for="image" class="form-label">Cover Image (Optional)</label>
                         <input type="file" name="image" id="image" class="form-control" accept="image/*">
                     </div>

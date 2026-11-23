@@ -37,6 +37,7 @@ class AlbumController extends Controller
             'name' => 'required|string|max:255',
             'release_date' => 'required|date',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',//tive que remover webp porque dava problemas na exportação para pdf
+            'preview_url' => 'nullable|url|max:255'
         ]);
 
         // Se receber uma foto, guarda-a na variavel
@@ -50,6 +51,7 @@ class AlbumController extends Controller
             'name' => $request->name,
             'release_date' => $request->release_date,
             'image' => $imagePath,
+            'preview_url' => $request->preview_url
         ]);
 
         return redirect()->route('bands.albums.index', $band->id)
@@ -82,6 +84,7 @@ class AlbumController extends Controller
             'name' => 'required|string|max:255',
             'release_date' => 'required|date',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'preview_url' => 'nullable|url|max:255'
         ]);
 
         $imagePath = $album->image;
@@ -98,6 +101,7 @@ class AlbumController extends Controller
             'name' => $request->name,
             'release_date' => $request->release_date,
             'image' => $imagePath,
+            'preview_url' => $request->preview_url
         ]);
 
         return redirect()->route('bands.albums.index', $album->band_id)

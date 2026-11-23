@@ -18,8 +18,7 @@
         <div class="d-flex gap-2">
             <a href="{{ url('/') }}" class="btn btn-dark">Manage Bands</a>
             @if(Auth::user()->isAdmin())
-            {{-- TODO --}}
-                {{-- <a href="{{ route('bands.create') }}" class="btn btn-success">+ Add New Band</a> --}}
+                <a href="{{ route('bands.create') }}" class="btn btn-success">+ Add New Band</a>
             @endif
         </div>
     </div>

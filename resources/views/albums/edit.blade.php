@@ -32,6 +32,13 @@
                         <input type="date" name="release_date" id="release_date" class="form-control" value="{{ old('release_date', $album->release_date) }}" required>
                     </div>
 
+                    <div class="mb-3">
+                        <label for="preview_url" class="form-label">YouTube or Spotify Link (Optional)</label>
+                        <input type="url" name="preview_url" id="preview_url" class="form-control"
+                            placeholder="https://open.spotify.com/album/... or https://www.youtube.com/watch?v=..."
+                            value="{{ old('preview_url', $album->preview_url ?? '') }}">
+                    </div>
+
                     @if($album->image)
                         <div class="mb-3">
                             <label class="form-label d-block">Current Cover</label>

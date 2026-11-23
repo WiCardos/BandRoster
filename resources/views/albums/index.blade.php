@@ -34,6 +34,7 @@
                     <th>Cover</th>
                     <th>Album Name</th>
                     <th>Release Date</th>
+                    <th>Preview</th>
                     @auth
                         <th class="text-end">Actions</th>
                     @endauth
@@ -51,6 +52,15 @@
                         </td>
                         <td class="fw-semibold">{{ $album->name }}</td>
                         <td>{{ \Carbon\Carbon::parse($album->release_date)->format('d/m/Y') }}</td>
+                        <td style="width: 260px;">
+                            @if($album->embedUrl())
+                                <iframe src="{{ $album->embedUrl() }}" width="250" height="140" frameborder="0"
+                                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                                        loading="lazy" class="rounded"></iframe>
+                            @else
+                                <span class="text-muted small">No preview</span>
+                            @endif
+                        </td>
                         @auth
                             <td class="text-end">
                                 <a href="{{ route('albums.edit', $album->id) }}" class="btn btn-sm btn-warning">Edit</a>
@@ -67,7 +77,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4" class="text-center py-4 text-muted">No albums registered for {{ $band->name }} yet.</td>
+                        <td colspan="5" class="text-center py-4 text-muted">No albums registered for {{ $band->name }} yet.</td>
                     </tr>
                 @endforelse
             </tbody>
