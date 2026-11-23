@@ -37,7 +37,7 @@ class BandController extends Controller
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
 
-        // Se receber uma foto, guarda-a
+        // Se receber uma foto, guarda-a na variavel
         $photoPath = null;
         if ($request->hasFile('photo')) {
             $photoPath = Storage::putFile('bands', $request->file('photo'));

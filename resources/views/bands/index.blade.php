@@ -37,7 +37,7 @@
                         </td>
                         <td class="text-end">
                             {{-- View Albums button (visible to everyone, including guests) --}}
-                            <a href="#" class="btn btn-sm btn-outline-dark">View Albums</a>
+                            <a href="{{ route('bands.albums.index', $band->id) }}" class="btn btn-sm btn-outline-dark">View Albums</a>
 
                             {{-- Edit button (authenticated users + admins) --}}
                             @auth

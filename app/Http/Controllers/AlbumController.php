@@ -1,0 +1,90 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Album;
+use App\Models\Band;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
+class AlbumController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(Band $band)
+    {
+        $albums = $band->albums()->orderBy('release_date', 'desc')->get();
+
+        return view('albums.index', compact('band', 'albums'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create(Band $band)
+    {
+        return view('albums.create', compact('band'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request, Band $band)
+    {
+        //Valida
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'release_date' => 'required|date',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+        ]);
+
+        // Se receber uma foto, guarda-a na variavel
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = Storage::putFile('albums', $request->file('image'));
+        }
+
+        // Eloquent magic: Não é preciso definir que band_id = $band->id
+        $band->albums()->create([
+            'name' => $request->name,
+            'release_date' => $request->release_date,
+            'image' => $imagePath,
+        ]);
+
+        return redirect()->route('bands.albums.index', $band->id)
+            ->with('message', 'Album added successfully!');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
+    }
+}

@@ -1,8 +1,13 @@
 <?php
 
+use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\BandController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
+
+/**
+ * Bands
+ */
 
 // Home page publica
 Route::get('/', [BandController::class, 'index'])->name('bands.index');
@@ -24,4 +29,24 @@ Route::middleware(['auth', 'admin'])->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/bands/{band}/edit', [BandController::class, 'edit'])->name('bands.edit');
     Route::put('/bands/{band}', [BandController::class, 'update'])->name('bands.update');
+});
+
+/**
+* Albuns
+*/
+
+// Todos os albuns por banda, para todos os users
+Route::get('/bands/{band}/albums', [AlbumController::class, 'index'])->name('bands.albums.index');
+
+// Serviços de Admin
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/bands/{band}/albums/create', [AlbumController::class, 'create'])->name('bands.albums.create');
+    Route::post('/bands/{band}/albums', [AlbumController::class, 'store'])->name('bands.albums.store');
+    Route::delete('/albums/{album}', [AlbumController::class, 'destroy'])->name('albums.destroy');
+});
+
+// Serviços de users autenticados (incluindo admin)
+Route::middleware('auth')->group(function () {
+    Route::get('/albums/{album}/edit', [AlbumController::class, 'edit'])->name('albums.edit');
+    Route::put('/albums/{album}', [AlbumController::class, 'update'])->name('albums.update');
 });
