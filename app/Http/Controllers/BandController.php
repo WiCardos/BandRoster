@@ -72,6 +72,7 @@ class BandController extends Controller
      */
     public function update(Request $request, Band $band)
     {
+        //Valida
         $request->validate([
             'name' => 'required|string|max:255',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',

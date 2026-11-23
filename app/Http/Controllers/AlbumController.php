@@ -67,24 +67,57 @@ class AlbumController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Album $album)
     {
-        //
+        return view('albums.edit', compact('album'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Album $album)
     {
-        //
+        //Valida
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'release_date' => 'required|date',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+        ]);
+
+        $imagePath = $album->image;
+
+        if ($request->hasFile('image')) {
+            // Se já existir uma foto, apaga-a
+            if ($album->image) {
+                Storage::delete($album->image);
+            }
+            $imagePath = Storage::putFile('albums', $request->file('image'));
+        }
+
+        $album->update([
+            'name' => $request->name,
+            'release_date' => $request->release_date,
+            'image' => $imagePath,
+        ]);
+
+        return redirect()->route('bands.albums.index', $album->band_id)
+            ->with('message', 'Album updated successfully!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Album $album)
     {
-        //
+        $bandId = $album->band_id;
+
+        if ($album->image) {
+            Storage::delete($album->image);
+        }
+
+        $album->delete();
+
+        return redirect()->route('bands.albums.index', $bandId)
+            ->with('message', 'Album deleted successfully!');
     }
 }
