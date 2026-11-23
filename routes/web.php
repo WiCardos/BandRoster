@@ -58,3 +58,8 @@ Route::middleware('auth')->group(function () {
 Route::get('/bands/{band}/export/pdf', [BandController::class, 'exportPdf'])->name('bands.export.pdf');
 Route::get('/bands/{band}/export/csv', [BandController::class, 'exportCsv'])->name('bands.export.csv');
 Route::get('/bands/{band}/export/json', [BandController::class, 'exportJson'])->name('bands.export.json');
+
+//fallback
+Route::fallback(function () {
+    return response()->view('errors.404', [], 404);
+});
